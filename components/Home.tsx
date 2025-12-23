@@ -70,41 +70,44 @@ const Home: React.FC<HomeProps> = ({ onSelectTactic, isAdmin, onToggleAdmin, onO
 
        {/* Categories */}
        <div className="space-y-10">
-         {Object.entries(categories).map(([category, items]) => (
-           <div key={category}>
-             <h2 className="text-2xl font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2 flex items-center">
-               {category}
-               <span className="ml-2 text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">{items.length}</span>
-             </h2>
-             
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-               {items.map(tactic => (
-                 <button
-                   key={tactic.id}
-                   onClick={() => onSelectTactic(tactic)}
-                   className="group relative bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-blue-400 transition-all text-left flex flex-col h-full"
-                 >
-                   <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                        <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
-                      </svg>
-                   </div>
-                   
-                   <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 font-bold flex items-center justify-center text-lg mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                     {getTacticBadge(tactic.name)}
-                   </div>
-
-                   <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                     {tactic.name}
-                   </h3>
-                   <p className="text-sm text-slate-500 mt-2 line-clamp-2">
-                     {tactic.description}
-                   </p>
-                 </button>
-               ))}
+         {Object.entries(categories).map(([category, items]) => {
+           const tacticItems = items as Tactic[];
+           return (
+             <div key={category}>
+               <h2 className="text-2xl font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2 flex items-center">
+                 {category}
+                 <span className="ml-2 text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">{tacticItems.length}</span>
+               </h2>
+               
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                 {tacticItems.map(tactic => (
+                   <button
+                     key={tactic.id}
+                     onClick={() => onSelectTactic(tactic)}
+                     className="group relative bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-blue-400 transition-all text-left flex flex-col h-full"
+                   >
+                     <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                          <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
+                        </svg>
+                     </div>
+                     
+                     <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 font-bold flex items-center justify-center text-lg mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                       {getTacticBadge(tactic.name)}
+                     </div>
+  
+                     <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                       {tactic.name}
+                     </h3>
+                     <p className="text-sm text-slate-500 mt-2 line-clamp-2">
+                       {tactic.description}
+                     </p>
+                   </button>
+                 ))}
+               </div>
              </div>
-           </div>
-         ))}
+           );
+         })}
        </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useAnimation, PanInfo } from 'framer-motion';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Coordinate } from '../types';
 import { screenToCanvas } from '../utils/coordinates';
 
