@@ -2,6 +2,12 @@
 import { Tactic } from '../types';
 import { sanitizeTactic } from '../utils/dataMigration';
 
+// Import from TS files (modules) to avoid JSON import issues in different environments
+import { sideout1 } from './tactics/sideout1';
+import { sideout2 } from './tactics/sideout2';
+import { sideout3 } from './tactics/sideout3';
+import { defense1 } from './tactics/defense1';
+
 // Placeholder generation for 4-6 to populate the list
 const placeholders: Tactic[] = [4, 5, 6].map(num => ({
     id: `sideout-${num}`,
@@ -26,28 +32,19 @@ const placeholders: Tactic[] = [4, 5, 6].map(num => ({
     ]
 }));
 
-// List of JSON files to fetch at runtime
-const tacticFiles = [
-    './data/tactics/sideout1.json',
-    './data/tactics/sideout2.json',
-    './data/tactics/sideout3.json',
-    './data/tactics/defense1.json'
-];
-
+// Memoize cache
 let cachedTactics: Tactic[] | null = null;
 
-// Async function to fetch tactics from JSON files
 export const getTactics = async (): Promise<Tactic[]> => {
     if (cachedTactics) return cachedTactics;
 
     try {
-        const promises = tacticFiles.map(url => fetch(url).then(res => {
-            if (!res.ok) throw new Error(`Failed to load ${url}`);
-            return res.json();
-        }));
+        const rawFiles = [sideout1, sideout2, sideout3, defense1];
         
-        const loaded = await Promise.all(promises);
-        const typedLoaded = loaded.map(t => sanitizeTactic(t));
+        // Filter out any undefined imports
+        const validFiles = rawFiles.filter(t => !!t);
+
+        const typedLoaded = validFiles.map(t => sanitizeTactic(t));
 
         cachedTactics = [
             ...typedLoaded,
@@ -55,8 +52,7 @@ export const getTactics = async (): Promise<Tactic[]> => {
         ];
         return cachedTactics;
     } catch (error) {
-        console.error("Error loading tactics:", error);
-        // Return placeholders if fetch fails (e.g. offline or file not found)
+        console.error("Error processing tactics:", error);
         return placeholders;
     }
 };

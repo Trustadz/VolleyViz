@@ -1,0 +1,41 @@
+
+export const defense1 = {
+  "id": "defense-1",
+  "category": "Defense",
+  "name": "Perimeter Defense",
+  "description": "Standard middle-middle defense.",
+  "players": ["S", "P1", "P2", "MID", "DIA", "L", "OS", "BALL"],
+  "steps": [
+    {
+      "id": "1", 
+      "label": "Base Defense", 
+      "description": "Waiting for opponent attack.",
+      "defaultNextStepId": "2",
+      "positions": {
+        "BALL": { "x": 50, "y": 2 },
+        "S": {"x": 80, "y": 90},
+        "P1": {"x": 20, "y": 90},
+        "L": {"x": 50, "y": 85},
+        "MID": {"x": 50, "y": 50},
+        "DIA": {"x": 80, "y": 50},
+        "P2": {"x": 20, "y": 50},
+        "OS": {"x": 50, "y": 5}
+      }
+    },
+    {
+      "id": "2", 
+      "label": "Read", 
+      "description": "Adjusting to high outside set.",
+      "positions": {
+        "BALL": { "x": 80, "y": 10 },
+        "S": {"x": 70, "y": 85},
+        "P1": {"x": 30, "y": 85},
+        "L": {"x": 50, "y": 90},
+        "MID": {"x": 60, "y": 50},
+        "DIA": {"x": 85, "y": 50},
+        "P2": {"x": 20, "y": 60},
+        "OS": {"x": 50, "y": 5}
+      }
+    }
+  ]
+};

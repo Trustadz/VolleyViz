@@ -1,4 +1,5 @@
-[{
+
+export const sideout1 = {
   "id": "sideout-1",
   "category": "Sideouts",
   "name": "Sideout 1 (Rot 1) - Interactive",
@@ -160,4 +161,4 @@
       }
     }
   ]
-}]
+};
